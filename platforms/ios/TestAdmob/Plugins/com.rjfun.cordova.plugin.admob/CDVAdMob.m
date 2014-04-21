@@ -157,7 +157,8 @@ interstitial:(BOOL)isInterstitial;
     BOOL isIOS7 = [mainView respondsToSelector:@selector(topLayoutGuide)];
     
     if (isIOS7 && self.bannerAtTop){
-        top = mainView.topLayoutGuide.length;
+        // below line fails to compile under xcode 4.6.3, so temp comment it
+        //top = mainView.topLayoutGuide.length;
     }
 
 	if( adIsShowing == show ) {
@@ -352,7 +353,8 @@ bannerType:(GADAdSize)adSize {
     BOOL isIOS7 = [mainView respondsToSelector:@selector(topLayoutGuide)];
     
     if (isIOS7 && self.bannerAtTop){
-        top = mainView.topLayoutGuide.length;
+        // below line fails to compile under xcode 4.6.3, so temp comment it
+        //top = mainView.topLayoutGuide.length;
     }
     
 	UIDeviceOrientation currentOrientation =
