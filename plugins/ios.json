@@ -1,0 +1,1 @@
+{"prepare_queue":{"installed":[],"uninstalled":[]},"config_munge":{"config.xml":{"/*":{"<feature name=\"AdMob\"><param name=\"ios-package\" value=\"CDVAdMob\" /></feature>":1}}},"installed_plugins":{"com.google.playservices":{"PACKAGE_NAME":"com.rjfun.testadmob"},"com.rjfun.cordova.plugin.admob":{"PACKAGE_NAME":"com.rjfun.testadmob"}},"dependent_plugins":{}}

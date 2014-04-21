@@ -248,7 +248,9 @@ public class AdMob extends CordovaPlugin {
     synchronized (runnable) {
       cordova.getActivity().runOnUiThread(runnable);
       try {
-        runnable.wait();
+        if (runnable.getPluginResult() == null || runnable.getPluginResult().getStatus() == PluginResult.Status.NO_RESULT.ordinal()) {
+          runnable.wait();
+        }
       } catch (InterruptedException exception) {
         Log.w(LOGTAG, String.format("Interrupted Exception: %s", exception.getMessage()));
         return new PluginResult(Status.ERROR, "Interruption occurred when running on UI thread");
@@ -261,7 +263,7 @@ public class AdMob extends CordovaPlugin {
    * Represents a runnable for the AdMob plugin that will run on the UI thread.
    */
   private abstract class AdMobRunnable implements Runnable {
-    protected PluginResult result;
+    protected PluginResult result = null;
 
     public PluginResult getPluginResult() {
       return result;
@@ -433,11 +435,12 @@ public class AdMob extends CordovaPlugin {
       if (adView == null) {
         result = new PluginResult(Status.ERROR, "AdView is null.  Did you call createBannerView?");
       } else {
-		if (this.show) {
-			adView.setVisibility(View.VISIBLE);
-		} else {
-			adView.setVisibility(View.GONE);
-		}
+        result = new PluginResult(Status.OK);
+    if (this.show) {
+      adView.setVisibility(View.VISIBLE);
+    } else {
+      adView.setVisibility(View.GONE);
+    }
       }
       synchronized (this) {
         this.notify();
