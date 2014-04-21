@@ -5,5 +5,6 @@ platforms/android/bin
 platforms/android/assets/www
 platforms/ios/build
 platforms/ios/www
+platforms/ios/TestAdmob.xcodeproj/xcuserdata/
 .DS_Store
 
