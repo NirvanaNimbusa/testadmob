@@ -1,0 +1,24 @@
+/Users/liming/workspace/cordova-apps/admob/platforms/android/ant-build/classes.dex : \
+/Users/liming/workspace/cordova-apps/admob/platforms/android/ant-build/classes/com/rjfun/cordova/plugin/AdMob$1.class \
+/Users/liming/workspace/cordova-apps/admob/platforms/android/ant-build/classes/com/rjfun/cordova/plugin/AdMob$AdMobRunnable.class \
+/Users/liming/workspace/cordova-apps/admob/platforms/android/ant-build/classes/com/rjfun/cordova/plugin/AdMob$BannerListener.class \
+/Users/liming/workspace/cordova-apps/admob/platforms/android/ant-build/classes/com/rjfun/cordova/plugin/AdMob$BasicListener.class \
+/Users/liming/workspace/cordova-apps/admob/platforms/android/ant-build/classes/com/rjfun/cordova/plugin/AdMob$CreateBannerViewRunnable.class \
+/Users/liming/workspace/cordova-apps/admob/platforms/android/ant-build/classes/com/rjfun/cordova/plugin/AdMob$CreateInterstitialViewRunnable.class \
+/Users/liming/workspace/cordova-apps/admob/platforms/android/ant-build/classes/com/rjfun/cordova/plugin/AdMob$DestroyBannerViewRunnable.class \
+/Users/liming/workspace/cordova-apps/admob/platforms/android/ant-build/classes/com/rjfun/cordova/plugin/AdMob$InterstitialListener.class \
+/Users/liming/workspace/cordova-apps/admob/platforms/android/ant-build/classes/com/rjfun/cordova/plugin/AdMob$RequestAdBasicRunnable.class \
+/Users/liming/workspace/cordova-apps/admob/platforms/android/ant-build/classes/com/rjfun/cordova/plugin/AdMob$RequestAdRunnable.class \
+/Users/liming/workspace/cordova-apps/admob/platforms/android/ant-build/classes/com/rjfun/cordova/plugin/AdMob$RequestInterstitialAdRunnable.class \
+/Users/liming/workspace/cordova-apps/admob/platforms/android/ant-build/classes/com/rjfun/cordova/plugin/AdMob$ShowAdRunnable.class \
+/Users/liming/workspace/cordova-apps/admob/platforms/android/ant-build/classes/com/rjfun/cordova/plugin/AdMob.class \
+/Users/liming/workspace/cordova-apps/admob/platforms/android/ant-build/classes/com/rjfun/testadmob/BuildConfig.class \
+/Users/liming/workspace/cordova-apps/admob/platforms/android/ant-build/classes/com/rjfun/testadmob/R$attr.class \
+/Users/liming/workspace/cordova-apps/admob/platforms/android/ant-build/classes/com/rjfun/testadmob/R$drawable.class \
+/Users/liming/workspace/cordova-apps/admob/platforms/android/ant-build/classes/com/rjfun/testadmob/R$integer.class \
+/Users/liming/workspace/cordova-apps/admob/platforms/android/ant-build/classes/com/rjfun/testadmob/R$string.class \
+/Users/liming/workspace/cordova-apps/admob/platforms/android/ant-build/classes/com/rjfun/testadmob/R$xml.class \
+/Users/liming/workspace/cordova-apps/admob/platforms/android/ant-build/classes/com/rjfun/testadmob/R.class \
+/Users/liming/workspace/cordova-apps/admob/platforms/android/ant-build/classes/com/rjfun/testadmob/TestAdMob.class \
+/Users/liming/workspace/cordova-apps/admob/platforms/android/ant-build/dexedLibs/classes-f727d5e4e7e030259faca06a08b614d6.jar \
+/Users/liming/workspace/cordova-apps/admob/platforms/android/ant-build/dexedLibs/google-play-services-af38185a2f391f85613e2d953e7626f9.jar \

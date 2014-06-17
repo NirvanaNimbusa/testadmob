@@ -1,0 +1,187 @@
+2014-06-17 16:15:58.816 TestAdMob[77160:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-17 16:15:58.820 TestAdMob[77160:70b] Unlimited access to network resources
+2014-06-17 16:15:58.823 TestAdMob[77160:70b] Fix applied for database locations?: YES
+2014-06-17 16:15:58.823 TestAdMob[77160:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-06-17 16:15:58.930 TestAdMob[77160:70b] Resetting plugins due to page load.
+2014-06-17 16:15:58.951 TestAdMob[77160:70b] Finished load of: file:///Users/liming/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/D7F9CF88-8410-4D55-842A-12EFF2F9B895/TestAdMob.app/www/index.html
+2014-06-17 16:15:58.974 TestAdMob[77160:70b] <Google> To get test ads on this device, call: request.testDevices = @[ Simulator ];
+2014-06-17 16:15:58.976 TestAdMob[77160:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:15:58.977 TestAdMob[77160:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:16:00.216 TestAdMob[77160:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:16:16.978 TestAdMob[77160:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:16:18.178 TestAdMob[77160:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:21:29.463 TestAdMob[77345:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-17 16:21:29.468 TestAdMob[77345:70b] Unlimited access to network resources
+2014-06-17 16:21:29.469 TestAdMob[77345:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-06-17 16:21:29.561 TestAdMob[77345:70b] Resetting plugins due to page load.
+2014-06-17 16:21:29.583 TestAdMob[77345:70b] Finished load of: file:///Users/liming/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/D7F9CF88-8410-4D55-842A-12EFF2F9B895/TestAdMob.app/www/index.html
+2014-06-17 16:21:29.607 TestAdMob[77345:70b] <Google> To get test ads on this device, call: request.testDevices = @[ Simulator ];
+2014-06-17 16:21:29.610 TestAdMob[77345:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:21:29.610 TestAdMob[77345:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:21:30.774 TestAdMob[77345:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:22:05.918 TestAdMob[77465:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-17 16:22:05.923 TestAdMob[77465:70b] Unlimited access to network resources
+2014-06-17 16:22:05.925 TestAdMob[77465:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-06-17 16:22:05.972 TestAdMob[77465:70b] Resetting plugins due to page load.
+2014-06-17 16:22:06.148 TestAdMob[77465:70b] Finished load of: file:///Users/liming/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/D7F9CF88-8410-4D55-842A-12EFF2F9B895/TestAdMob.app/www/index.html
+2014-06-17 16:22:06.305 TestAdMob[77465:70b] <Google> To get test ads on this device, call: request.testDevices = @[ Simulator ];
+2014-06-17 16:22:06.308 TestAdMob[77465:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:22:06.308 TestAdMob[77465:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:22:07.358 TestAdMob[77465:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:22:32.461 TestAdMob[77559:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-17 16:22:32.466 TestAdMob[77559:70b] Unlimited access to network resources
+2014-06-17 16:22:32.468 TestAdMob[77559:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-06-17 16:22:32.586 TestAdMob[77559:70b] Resetting plugins due to page load.
+2014-06-17 16:22:32.628 TestAdMob[77559:70b] Finished load of: file:///Users/liming/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/D7F9CF88-8410-4D55-842A-12EFF2F9B895/TestAdMob.app/www/index.html
+2014-06-17 16:22:32.654 TestAdMob[77559:70b] <Google> To get test ads on this device, call: request.testDevices = @[ Simulator ];
+2014-06-17 16:22:32.656 TestAdMob[77559:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:22:32.657 TestAdMob[77559:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:22:33.735 TestAdMob[77559:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:23:33.754 TestAdMob[77559:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:25:45.948 TestAdMob[77645:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-17 16:25:45.953 TestAdMob[77645:70b] Unlimited access to network resources
+2014-06-17 16:25:45.962 TestAdMob[77645:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-06-17 16:25:46.012 TestAdMob[77645:70b] Resetting plugins due to page load.
+2014-06-17 16:25:46.033 TestAdMob[77645:70b] Finished load of: file:///Users/liming/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/D7F9CF88-8410-4D55-842A-12EFF2F9B895/TestAdMob.app/www/index.html
+2014-06-17 16:25:46.072 TestAdMob[77645:70b] <Google> To get test ads on this device, call: request.testDevices = @[ Simulator ];
+2014-06-17 16:25:46.075 TestAdMob[77645:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:25:46.075 TestAdMob[77645:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:25:47.510 TestAdMob[77645:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+Terminating in response to SpringBoard's termination.
+2014-06-17 16:26:03.066 TestAdMob[77781:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-17 16:26:03.070 TestAdMob[77781:70b] Unlimited access to network resources
+2014-06-17 16:26:03.072 TestAdMob[77781:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-06-17 16:26:03.171 TestAdMob[77781:70b] Resetting plugins due to page load.
+2014-06-17 16:26:03.200 TestAdMob[77781:70b] Finished load of: file:///Users/liming/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/D7F9CF88-8410-4D55-842A-12EFF2F9B895/TestAdMob.app/www/index.html
+2014-06-17 16:26:03.222 TestAdMob[77781:70b] <Google> To get test ads on this device, call: request.testDevices = @[ Simulator ];
+2014-06-17 16:26:03.225 TestAdMob[77781:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:26:03.225 TestAdMob[77781:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:26:04.264 TestAdMob[77781:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:26:24.034 TestAdMob[77781:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:26:24.034 TestAdMob[77781:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:26:24.578 TestAdMob[77781:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:27:04.148 TestAdMob[77781:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:27:04.149 TestAdMob[77781:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:27:04.622 TestAdMob[77781:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:27:08.620 TestAdMob[77781:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:27:08.621 TestAdMob[77781:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:27:08.958 TestAdMob[77781:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:27:10.032 TestAdMob[77781:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:27:11.417 TestAdMob[77781:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:27:12.784 TestAdMob[77781:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:27:13.334 TestAdMob[77781:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:28:13.387 TestAdMob[77781:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:28:13.388 TestAdMob[77781:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:28:13.772 TestAdMob[77781:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:28:19.963 TestAdMob[77781:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:28:19.964 TestAdMob[77781:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:28:20.346 TestAdMob[77781:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:29:20.990 TestAdMob[77907:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-17 16:29:20.995 TestAdMob[77907:70b] Unlimited access to network resources
+2014-06-17 16:29:20.997 TestAdMob[77907:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-06-17 16:29:21.047 TestAdMob[77907:70b] Resetting plugins due to page load.
+2014-06-17 16:29:21.068 TestAdMob[77907:70b] Finished load of: file:///Users/liming/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/D7F9CF88-8410-4D55-842A-12EFF2F9B895/TestAdMob.app/www/index.html
+2014-06-17 16:29:21.087 TestAdMob[77907:70b] <Google> To get test ads on this device, call: request.testDevices = @[ Simulator ];
+2014-06-17 16:29:21.089 TestAdMob[77907:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:29:21.090 TestAdMob[77907:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:29:21.684 TestAdMob[77907:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+Terminating in response to SpringBoard's termination.
+2014-06-17 16:29:35.715 TestAdMob[78000:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-17 16:29:35.722 TestAdMob[78000:70b] Unlimited access to network resources
+2014-06-17 16:29:35.724 TestAdMob[78000:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-06-17 16:29:35.822 TestAdMob[78000:70b] Resetting plugins due to page load.
+2014-06-17 16:29:35.847 TestAdMob[78000:70b] Finished load of: file:///Users/liming/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/D7F9CF88-8410-4D55-842A-12EFF2F9B895/TestAdMob.app/www/index.html
+2014-06-17 16:29:35.873 TestAdMob[78000:70b] <Google> To get test ads on this device, call: request.testDevices = @[ Simulator ];
+2014-06-17 16:29:35.876 TestAdMob[78000:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:29:35.877 TestAdMob[78000:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:29:36.474 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:29:38.325 TestAdMob[78000:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:29:41.445 TestAdMob[78000:70b] THREAD WARNING: ['AdMob'] took '657.879883' ms. Plugin should use a background thread.
+2014-06-17 16:29:45.464 TestAdMob[78000:70b] THREAD WARNING: ['AdMob'] took '2729.468018' ms. Plugin should use a background thread.
+2014-06-17 16:29:48.367 TestAdMob[78000:70b] THREAD WARNING: ['AdMob'] took '1830.655273' ms. Plugin should use a background thread.
+2014-06-17 16:29:50.529 TestAdMob[78000:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:29:50.530 TestAdMob[78000:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:29:50.870 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:29:54.802 TestAdMob[78000:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:29:54.803 TestAdMob[78000:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:29:55.142 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:29:56.133 TestAdMob[78000:70b] webview: 320 x 460
+2014-06-17 16:29:57.362 TestAdMob[78000:70b] webview: 320 x 460
+2014-06-17 16:29:57.363 TestAdMob[78000:70b] webview: 320 x 410, banner view: 320 x 50
+2014-06-17 16:29:57.567 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:30:57.827 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:31:58.074 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:32:58.497 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:33:58.677 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:34:58.864 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:35:59.009 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:36:59.162 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:37:59.536 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:38:59.698 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:39:59.861 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:41:00.008 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:42:00.327 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:43:00.599 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:44:00.724 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:45:00.874 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:46:00.973 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:47:01.190 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:48:01.290 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:49:01.438 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:50:01.662 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:51:02.083 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:52:02.164 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:53:02.302 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:54:02.625 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:55:02.778 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:56:02.714 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:57:02.765 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.
+2014-06-17 16:58:02.919 TestAdMob[78000:70b] -[CDVAdMob adViewDidReceiveAd:]: Received ad successfully.

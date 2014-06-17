@@ -17,7 +17,7 @@
  under the License.
  */
 //
-// Prefix header for all source files of the 'TestAdmob' target in the 'TestAdmob' project
+// Prefix header for all source files of the 'TestAdMob' target in the 'TestAdMob' project
 //
 
 #ifdef __OBJC__

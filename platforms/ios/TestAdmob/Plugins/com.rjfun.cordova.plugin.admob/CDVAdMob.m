@@ -106,9 +106,11 @@ interstitial:(BOOL)isInterstitial;
 	NSString *callbackId = command.callbackId;
 
 	if(self.bannerView) {
-        [self showAd:false];
+        [self.bannerView setDelegate:nil];
 		[self.bannerView removeFromSuperview];
         self.bannerView = nil;
+        
+        self.webView.frame = self.webView.superview.frame;
 	}
 
 	// Call the success callback that was passed in through the javascript.
@@ -157,7 +159,8 @@ interstitial:(BOOL)isInterstitial;
 		return;
 	}
 
-	BOOL adIsShowing = [self.webView.superview.subviews containsObject:self.bannerView];
+	BOOL adIsShowing = [self.webView.superview.subviews containsObject:self.bannerView] &&
+        (! self.bannerView.hidden);
 	BOOL toShow = [[arguments objectAtIndex:SHOW_AD_ARG_INDEX] boolValue];
     
 	if( adIsShowing == toShow ) { // already show or hide
