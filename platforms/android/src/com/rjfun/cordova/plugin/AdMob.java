@@ -18,6 +18,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.os.Bundle;
 
 import java.util.Iterator;
@@ -35,6 +36,8 @@ public class AdMob extends CordovaPlugin {
   /** The interstitial ad to display to the user. */
   private InterstitialAd interstitialAd;
 
+  private String publisherId = "";
+  private AdSize adSize = null;
   /** Whether or not the ad should be positioned at top or bottom of screen. */
   private boolean bannerAtTop;
 
@@ -55,6 +58,7 @@ public class AdMob extends CordovaPlugin {
 
   private static final int	IS_TESTING_ARG_INDEX = 0;
   private static final int	EXTRAS_ARG_INDEX = 1;
+  private static final int  AD_TYPE_ARG_INDEX = 2;
 
   private static final int	SHOW_AD_ARG_INDEX = 0;
 
@@ -70,24 +74,33 @@ public class AdMob extends CordovaPlugin {
    */
   @Override
   public boolean execute(String action, JSONArray inputs, CallbackContext callbackContext) throws JSONException {
-    PluginResult result;
+    PluginResult result = null;
     if (ACTION_CREATE_BANNER_VIEW.equals(action)) {
-      result = executeCreateBannerView(inputs);
+      result = executeCreateBannerView(inputs, callbackContext);
+      
     } else if (ACTION_CREATE_INTERSTITIAL_VIEW.equals(action)) {
-      result = executeCreateInterstitialView(inputs);
+      result = executeCreateInterstitialView(inputs, callbackContext);
+      
     } else if (ACTION_DESTROY_BANNER_VIEW.equals(action)) {
-      result = executeDestroyBannerView();
+      result = executeDestroyBannerView( callbackContext);
+      
     } else if (ACTION_REQUEST_INTERSTITIAL_AD.equals(action)) {
-      result = executeRequestInterstitialAd(inputs);
+    	inputs.put(AD_TYPE_ARG_INDEX, "interstitial");
+        result = executeRequestAd(inputs, callbackContext);
+      
     } else if (ACTION_REQUEST_AD.equals(action)) {
-      result = executeRequestAd(inputs);
+    	inputs.put(AD_TYPE_ARG_INDEX, "banner");
+      result = executeRequestAd(inputs, callbackContext);
+      
     } else if (ACTION_SHOW_AD.equals(action)) {
-      result = executeShowAd(inputs);
+      result = executeShowAd(inputs, callbackContext);
+      
     } else {
       Log.d(LOGTAG, String.format("Invalid action passed: %s", action));
       result = new PluginResult(Status.INVALID_ACTION);
     }
-    callbackContext.sendPluginResult( result );
+    
+    if(result != null) callbackContext.sendPluginResult( result );
 
     return true;
   }
@@ -103,14 +116,11 @@ public class AdMob extends CordovaPlugin {
    * @return A PluginResult representing whether or not the banner was created
    *         successfully.
    */
-  private PluginResult executeCreateBannerView(JSONArray inputs) {
-    String publisherId;
-    String size;
-
+  private PluginResult executeCreateBannerView(JSONArray inputs, CallbackContext callbackContext) {
     // Get the input data.
     try {
-      publisherId = inputs.getString( PUBLISHER_ID_ARG_INDEX );
-      size = inputs.getString( AD_SIZE_ARG_INDEX );
+      this.publisherId = inputs.getString( PUBLISHER_ID_ARG_INDEX );
+      this.adSize = adSizeFromString( inputs.getString( AD_SIZE_ARG_INDEX ) );
       this.bannerAtTop = inputs.getBoolean( POSITION_AT_TOP_ARG_INDEX );
       
       // remove the code below, if you do not want to donate 2% to the author of this plugin
@@ -124,11 +134,54 @@ public class AdMob extends CordovaPlugin {
       Log.w(LOGTAG, String.format("Got JSON Exception: %s", exception.getMessage()));
       return new PluginResult(Status.JSON_EXCEPTION);
     }
-
-    // Create the AdView on the UI thread.
-    return executeRunnable(new CreateBannerViewRunnable(
-        publisherId, adSizeFromSize(size)));
+    
+    final CallbackContext delayCallback = callbackContext;
+    cordova.getActivity().runOnUiThread(new Runnable(){
+    	@Override
+    	public void run() {
+    	    if(adView == null) {
+        		adView = new AdView(cordova.getActivity());
+        		adView.setAdUnitId(publisherId);
+        		adView.setAdSize(adSize);
+        		adView.setAdListener(new BannerListener());
+    	    }
+			if (adView.getParent() != null) {
+				((ViewGroup)adView.getParent()).removeView(adView);
+			}
+    		ViewGroup parentView = (ViewGroup) webView.getParent();
+    		if (bannerAtTop) {
+    			parentView.addView(adView, 0);
+    		} else {
+    			parentView.addView(adView);
+    		}
+    		delayCallback.success();
+    	}
+    });
+    
+    return null;
   }
+
+  private PluginResult executeDestroyBannerView(CallbackContext callbackContext) {
+	  	Log.w(LOGTAG, "executeDestroyBannerView");
+	  	
+		final CallbackContext delayCallback = callbackContext;
+	  	cordova.getActivity().runOnUiThread(new Runnable() {
+		    @Override
+		    public void run() {
+				if (adView != null) {
+					ViewGroup parentView = (ViewGroup)adView.getParent();
+					if(parentView != null) {
+						parentView.removeView(adView);
+					}
+					adView = null;
+				}
+				delayCallback.success();
+		    }
+	  	});
+	  	
+	  	return null;
+	  }
+
 
   /**
    * Parses the create interstitial view input parameters and runs the create interstitial
@@ -141,8 +194,8 @@ public class AdMob extends CordovaPlugin {
    * @return A PluginResult representing whether or not the banner was created
    *         successfully.
    */
-  private PluginResult executeCreateInterstitialView(JSONArray inputs) {
-    String publisherId;
+  private PluginResult executeCreateInterstitialView(JSONArray inputs, CallbackContext callbackContext) {
+    final String publisherId;
 
     // Get the input data.
     try {
@@ -151,14 +204,19 @@ public class AdMob extends CordovaPlugin {
       Log.w(LOGTAG, String.format("Got JSON Exception: %s", exception.getMessage()));
       return new PluginResult(Status.JSON_EXCEPTION);
     }
-
-    // Create the Interstitial View on the UI thread.
-    return executeRunnable(new CreateInterstitialViewRunnable(publisherId));
-  }
-
-  private PluginResult executeDestroyBannerView() {
-    // Destroy the AdView on the UI thread.
-    return executeRunnable(new DestroyBannerViewRunnable());
+    
+    final CallbackContext delayCallback = callbackContext;
+    cordova.getActivity().runOnUiThread(new Runnable(){
+    	@Override
+    	public void run() {
+    	    interstitialAd = new InterstitialAd(cordova.getActivity());
+    	    interstitialAd.setAdUnitId(publisherId);
+    	    interstitialAd.setAdListener(new InterstitialListener());
+    	    
+    		delayCallback.success();
+    	}
+    });
+    return null;
   }
 
   /**
@@ -172,51 +230,79 @@ public class AdMob extends CordovaPlugin {
    *         succcessfully.  Listen for onReceiveAd() and onFailedToReceiveAd()
    *         callbacks to see if an ad was successfully retrieved. 
    */
-  private PluginResult executeRequestAd(JSONArray inputs) {
-    boolean isTesting;
+  private PluginResult executeRequestAd(JSONArray inputs, CallbackContext callbackContext) {
+	 	Log.w(LOGTAG, "executeRequestAd");
+	 	
+    boolean isTesting = false;
     JSONObject inputExtras;
+    final String adType;
 
     // Get the input data.
     try {
       isTesting = inputs.getBoolean( IS_TESTING_ARG_INDEX );
       inputExtras = inputs.getJSONObject( EXTRAS_ARG_INDEX );
+      adType = inputs.getString( AD_TYPE_ARG_INDEX );
 
     } catch (JSONException exception) {
       Log.w(LOGTAG, String.format("Got JSON Exception: %s", exception.getMessage()));
       return new PluginResult(Status.JSON_EXCEPTION);
     }
-
-    // Request an ad on the UI thread.
-    return executeRunnable(new RequestAdRunnable(isTesting, inputExtras));
-  }
-
-  /**
-   * Parses the request interstitial ad input parameters and runs the request ad action on
-   * the UI thread.
-   *
-   * @param inputs The JSONArray representing input parameters.  This function
-   *        expects the first object in the array to be a JSONObject with the
-   *        input parameters.
-   * @return A PluginResult representing whether or not an ad was requested
-   *         succcessfully.  Listen for onReceiveAd() and onFailedToReceiveAd()
-   *         callbacks to see if an ad was successfully retrieved. 
-   */
-  private PluginResult executeRequestInterstitialAd(JSONArray inputs) {
-    boolean isTesting;
-    JSONObject inputExtras;
-
-    // Get the input data.
-    try {
-      isTesting = inputs.getBoolean( IS_TESTING_ARG_INDEX );
-      inputExtras = inputs.getJSONObject( EXTRAS_ARG_INDEX );
-
-    } catch (JSONException exception) {
-      Log.w(LOGTAG, String.format("Got JSON Exception: %s", exception.getMessage()));
-      return new PluginResult(Status.JSON_EXCEPTION);
+    
+    if(adType.equals("banner")) {
+    	if(adView == null) {
+    		return new PluginResult(Status.ERROR, "adView is null, call createBannerView first.");
+    	}
+    } else if(adType.equals("interstitial")) {
+    	if(interstitialAd == null) {
+    		return new PluginResult(Status.ERROR, "interstitialAd is null, call createInterstitialView first.");
+    	}
+    } else {
+    	return new PluginResult(Status.ERROR, "adType is unknown.");
     }
 
+    AdRequest.Builder request_builder = new AdRequest.Builder();
+    if (isTesting) {
+      // This will request test ads on the emulator only.  You can get your
+      // hashed device ID from LogCat when making a live request.  Pass
+      // this hashed device ID to addTestDevice request test ads on your
+      // device.
+      request_builder = request_builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
+    }
+    
+    Bundle bundle = new Bundle();
+    bundle.putInt("cordova", 1);
+    Iterator<String> extrasIterator = inputExtras.keys();
+    while (extrasIterator.hasNext()) {
+      String key = extrasIterator.next();
+      try {
+        bundle.putString(key, inputExtras.get(key).toString());
+      } catch (JSONException exception) {
+        Log.w(LOGTAG, String.format("Caught JSON Exception: %s", exception.getMessage()));
+       return new PluginResult(Status.JSON_EXCEPTION, "Error grabbing extras");
+      }
+    }
+    AdMobExtras extras = new AdMobExtras(bundle);
+    
+    request_builder = request_builder.addNetworkExtras(extras);
+    final AdRequest request = request_builder.build();
+    
+    final CallbackContext delayCallback = callbackContext;
+    cordova.getActivity().runOnUiThread(new Runnable() {
+    	@Override
+    	public void run() {
+            if (adType.equals("banner"))
+              adView.loadAd(request);
+            else if (adType.equals("interstitial"))
+              interstitialAd.loadAd(request);
+            
+            delayCallback.success();
+    	}
+    });
+    
+    return null;
+    
     // Request an ad on the UI thread.
-    return executeRunnable(new RequestInterstitialAdRunnable(isTesting, inputExtras));
+    //return executeRunnable(new RequestAdRunnable(isTesting, inputExtras));
   }
 
   /**
@@ -230,8 +316,8 @@ public class AdMob extends CordovaPlugin {
    *         succcessfully.  Listen for onReceiveAd() and onFailedToReceiveAd()
    *         callbacks to see if an ad was successfully retrieved. 
    */
-  private PluginResult executeShowAd(JSONArray inputs) {
-    boolean show;
+  private PluginResult executeShowAd(JSONArray inputs, CallbackContext callbackContext) {
+    final boolean show;
 
     // Get the input data.
     try {
@@ -241,217 +327,18 @@ public class AdMob extends CordovaPlugin {
       return new PluginResult(Status.JSON_EXCEPTION);
     }
 
-    // Request an ad on the UI thread.
-    return executeRunnable( new ShowAdRunnable(show) );
-  }
-
-  /**
-   * Executes the runnable on the activity from the plugin's context.  This
-   * is a blocking call that waits for a notification from the runnable
-   * before it continues.
-   *
-   * @param runnable The AdMobRunnable representing the command to run.
-   * @return A PluginResult representing the result of the command.
-   */
-  private PluginResult executeRunnable(AdMobRunnable runnable) {
-    synchronized (runnable) {
-      cordova.getActivity().runOnUiThread(runnable);
-      try {
-        if (runnable.getPluginResult() == null) {
-          runnable.wait();
-        }
-      } catch (InterruptedException exception) {
-        Log.w(LOGTAG, String.format("Interrupted Exception: %s", exception.getMessage()));
-        return new PluginResult(Status.ERROR, "Interruption occurred when running on UI thread");
-      }
-    }
-    return runnable.getPluginResult();
-  }
-
-  /**
-   * Represents a runnable for the AdMob plugin that will run on the UI thread.
-   */
-  private abstract class AdMobRunnable implements Runnable {
-    protected PluginResult result = null;
-
-    public PluginResult getPluginResult() {
-      return result;
-    }
-  }
-
-  /** Runnable for the createBannerView action. */
-  private class CreateBannerViewRunnable extends AdMobRunnable {
-    private String publisherId;
-    private AdSize adSize;
-
-    public CreateBannerViewRunnable(String publisherId, AdSize adSize) {
-      this.publisherId = publisherId;
-      this.adSize = adSize;
-    }
-
-    @Override
-    public void run() {
-      if (adSize == null) {
-        result = new PluginResult(Status.ERROR, "AdSize is null. Did you use an AdSize constant?");
-      } else {
-        adView = new AdView(cordova.getActivity());
-        adView.setAdUnitId(publisherId);
-        adView.setAdSize(adSize);
-        adView.setAdListener(new BannerListener());
-        LinearLayoutSoftKeyboardDetect parentView =
-            (LinearLayoutSoftKeyboardDetect) webView.getParent();
-        if (bannerAtTop) {
-          parentView.addView(adView, 0);
-        } else {
-          parentView.addView(adView);
-        }
-        // Notify the plugin.
-        result = new PluginResult(Status.OK);
-      }
-      synchronized (this) {
-        this.notify();
-      }
-    }
-  }
-
-  /** Runnable for the createInterstitialView action. */
-  private class CreateInterstitialViewRunnable extends AdMobRunnable {
-    private String publisherId;
-
-    public CreateInterstitialViewRunnable(String publisherId) {
-      this.publisherId = publisherId;
-      result = new PluginResult(Status.NO_RESULT);
-    }
-
-    @Override
-    public void run() {
-      // Create the interstitial Ad.
-      interstitialAd = new InterstitialAd(cordova.getActivity());
-      interstitialAd.setAdUnitId(publisherId);
-      interstitialAd.setAdListener(new InterstitialListener());
-      result = new PluginResult(Status.OK);
-
-      synchronized (this) {
-        this.notify();
-      }
-    }
-  }
-
-  private class DestroyBannerViewRunnable extends AdMobRunnable {
-    public DestroyBannerViewRunnable() {
-      result = new PluginResult(Status.NO_RESULT);
-    }
-
-    @Override
-    public void run() {
-      if(adView != null) {
-        LinearLayoutSoftKeyboardDetect parentView =
-            (LinearLayoutSoftKeyboardDetect) webView.getParent();
-        parentView.removeView(adView);
-      }
-      // Notify the plugin.
-      result = new PluginResult(Status.OK);
-      synchronized (this) {
-        this.notify();
-      }
-    }
-  }
-
-  /** Runnable for the basic requestAd action. */
-  private class RequestAdBasicRunnable extends AdMobRunnable {
-    private boolean isTesting;
-    private JSONObject inputExtras;
-    private String adType;
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public void run() {
-      if (adType.isEmpty()) {
-        result = new PluginResult(Status.ERROR, "AdView/InterstitialAd is null.  Did you call createBannerView/createInterstitialView?");
-      } else {
-        AdRequest.Builder request_builder = new AdRequest.Builder();
-        if (isTesting) {
-          // This will request test ads on the emulator only.  You can get your
-          // hashed device ID from LogCat when making a live request.  Pass
-          // this hashed device ID to addTestDevice request test ads on your
-          // device.
-          request_builder = request_builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
-        }
-        Bundle bundle = new Bundle();
-        Iterator<String> extrasIterator = inputExtras.keys();
-        boolean inputValid = true;
-        while (extrasIterator.hasNext()) {
-          String key = extrasIterator.next();
-          try {
-            bundle.putString(key, inputExtras.get(key).toString());
-          } catch (JSONException exception) {
-            Log.w(LOGTAG, String.format("Caught JSON Exception: %s", exception.getMessage()));
-            result = new PluginResult(Status.JSON_EXCEPTION, "Error grabbing extras");
-            inputValid = false;
-          }
-        }
-        if (inputValid) {
-          bundle.putInt("cordova", 1);
-          AdMobExtras extras = new AdMobExtras(bundle);
-          request_builder = request_builder.addNetworkExtras(extras);
-          AdRequest request = request_builder.build();
-          if (adView != null && adType.equals("banner"))
-            adView.loadAd(request);
-          else if (interstitialAd != null && adType.equals("interstitial"))
-            interstitialAd.loadAd(request);
-          result = new PluginResult(Status.OK);
-        }
-      }
-      synchronized (this) {
-        this.notify();
-      }
-    }
-  }
-
-  /** Runnable for the requestAd action for Banner. */
-  private class RequestAdRunnable extends RequestAdBasicRunnable {
-    public RequestAdRunnable(boolean isTesting, JSONObject inputExtras) {
-      super.isTesting = isTesting;
-      super.inputExtras = inputExtras;
-      super.adType = "banner";
-    }
-  }
-
-  /** Runnable for the requestAd action for Interstitial. */
-  private class RequestInterstitialAdRunnable extends RequestAdBasicRunnable {
-    public RequestInterstitialAdRunnable(boolean isTesting, JSONObject inputExtras) {
-      super.isTesting = isTesting;
-      super.inputExtras = inputExtras;
-      super.adType = "interstitial";
-      result = new PluginResult(Status.NO_RESULT);
-    }
-  }
-
-  /** Runnable for the showAd action. This is only available for Banner View. */
-  private class ShowAdRunnable extends AdMobRunnable {
-    private boolean show;
-
-    public ShowAdRunnable(boolean show) {
-      this.show = show;
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public void run() {
-      if (adView == null) {
-        result = new PluginResult(Status.ERROR, "AdView is null.  Did you call createBannerView?");
-      } else {
-        result = new PluginResult(Status.OK);
-        if (this.show) {
-          adView.setVisibility(View.VISIBLE);
-        } else {
-          adView.setVisibility(View.GONE);
-        }
-      }
-      synchronized (this) {
-        this.notify();
-      }
-    }
+    final CallbackContext delayCallback = callbackContext;
+    cordova.getActivity().runOnUiThread(new Runnable(){
+    	@Override
+    	public void run() {
+    		if(adView != null) {
+    			adView.setVisibility( show ? View.VISIBLE : View.GONE );
+    		}
+            delayCallback.success();
+    	}
+    });
+    
+    return null;
   }
 
   /**
@@ -538,7 +425,7 @@ public class AdMob extends CordovaPlugin {
    * @param size The string size representing an ad format constant.
    * @return An AdSize object used to create a banner.
    */
-  public static AdSize adSizeFromSize(String size) {
+  public static AdSize adSizeFromString(String size) {
     if ("BANNER".equals(size)) {
       return AdSize.BANNER;
     } else if ("IAB_MRECT".equals(size)) {
