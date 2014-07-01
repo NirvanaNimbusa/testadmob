@@ -58,10 +58,11 @@
                                 {
                                 'publisherId': adId,
                                 'adSize': am.AD_SIZE.BANNER,
-                                'bannerAtTop': true
+                                'bannerAtTop': false,
+                                'overlap': true
                                 }, function() {
                                 am.requestAd( { 'isTesting':true }, function() {
-                                             am.showAd( true );
+                                             am.showAd( true, function(){ onResize(); }, function(){} );
                                              }, function() {
                                              alert('failed to request ad');
                                              })
