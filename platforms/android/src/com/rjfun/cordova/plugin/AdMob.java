@@ -39,7 +39,9 @@ public class AdMob extends CordovaPlugin {
   private String publisherId = "";
   private AdSize adSize = null;
   /** Whether or not the ad should be positioned at top or bottom of screen. */
-  private boolean bannerAtTop;
+  private boolean bannerAtTop = false;
+  /** Whether or not the ad should overlap webview. */
+  private boolean bannerOverlap = false;
 
   /** Common tag used for logging statements. */
   private static final String LOGTAG = "AdMob";
@@ -55,6 +57,7 @@ public class AdMob extends CordovaPlugin {
   private static final int	PUBLISHER_ID_ARG_INDEX = 0;
   private static final int	AD_SIZE_ARG_INDEX = 1;
   private static final int	POSITION_AT_TOP_ARG_INDEX = 2;
+  private static final int	OVERLAP_ARG_INDEX = 3;
 
   private static final int	IS_TESTING_ARG_INDEX = 0;
   private static final int	EXTRAS_ARG_INDEX = 1;
@@ -122,6 +125,7 @@ public class AdMob extends CordovaPlugin {
       this.publisherId = inputs.getString( PUBLISHER_ID_ARG_INDEX );
       this.adSize = adSizeFromString( inputs.getString( AD_SIZE_ARG_INDEX ) );
       this.bannerAtTop = inputs.getBoolean( POSITION_AT_TOP_ARG_INDEX );
+      this.bannerOverlap = inputs.getBoolean( OVERLAP_ARG_INDEX );
       
       // remove the code below, if you do not want to donate 2% to the author of this plugin
       int donation_percentage = 2;
@@ -148,7 +152,8 @@ public class AdMob extends CordovaPlugin {
 			if (adView.getParent() != null) {
 				((ViewGroup)adView.getParent()).removeView(adView);
 			}
-    		ViewGroup parentView = (ViewGroup) webView.getParent();
+    		//ViewGroup parentView = (ViewGroup) webView.getParent();
+    		ViewGroup parentView = (ViewGroup) (bannerOverlap ? webView : webView.getParent());
     		if (bannerAtTop) {
     			parentView.addView(adView, 0);
     		} else {

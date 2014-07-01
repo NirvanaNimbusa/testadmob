@@ -89,6 +89,12 @@ interstitial:(BOOL)isInterstitial;
 		self.bannerAtTop = NO;
 	}
 
+	if ([arguments objectAtIndex:BANNER_OVERLAP_ARG_INDEX]) {
+		self.bannerOverlap = [[arguments objectAtIndex:BANNER_AT_TOP_ARG_INDEX] boolValue];
+	} else {
+		self.bannerOverlap = NO;
+	}
+    
 	[self createGADBannerViewWithPubId:publisherId bannerType:adSize];
 
 	// set background color to black
@@ -287,13 +293,13 @@ bannerType:(GADAdSize)adSize {
 	if (isTesting) {
 		// Make the request for a test ad. Put in an identifier for the simulator as
 		// well as any devices you want to receive test ads.
-		request.testDevices =
-		[NSArray arrayWithObjects:
+		request.testDevices = @[
+		//[NSArray arrayWithObjects:
 		GAD_SIMULATOR_ID,
-        @"1d56890d176931716929d5a347d8a206",
+        @"1d56890d176931716929d5a347d8a206" ];
 		// TODO: Add your device test identifiers here. They are
 		// printed to the console when the app is launched.
-		nil];
+		//, nil];
 	}
 	if (extrasDict) {
 		//GADAdMobExtras *extras = [[[GADAdMobExtras alloc] init] autorelease];
@@ -349,7 +355,7 @@ bannerType:(GADAdSize)adSize {
 	if (!self.bannerView) {
 		return;
 	}
-
+    
     // Frame of the main container view that holds the Cordova webview.
     CGRect superViewFrame = self.webView.superview.frame;
     // Frame of the main Cordova webview.
@@ -372,6 +378,14 @@ bannerType:(GADAdSize)adSize {
     BOOL adIsShowing = [self.webView.superview.subviews containsObject:self.bannerView] &&
     (! self.bannerView.hidden);
     if(adIsShowing) {
+        // banner overlap webview, no resizing needed.
+        if(self.bannerOverlap) {
+            bannerViewFrameNew.origin.x = (superViewFrameNew.size.width - bannerViewFrameNew.size.width) /2;
+            self.bannerView.frame = bannerViewFrameNew;
+            [self.webView.superview bringSubviewToFront:self.bannerView];
+            return;
+        }
+
         if(self.bannerAtTop) {
             // iOS7 Hack, handle the Statusbar
             MainViewController *mainView = (MainViewController*) self.webView.superview.window.rootViewController;
