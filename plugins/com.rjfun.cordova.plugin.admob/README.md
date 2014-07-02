@@ -61,7 +61,8 @@ Call the following code inside onDeviceReady(), because only after device ready 
             {
             'publisherId': adId,
             'adSize': am.AD_SIZE.BANNER,
-            'bannerAtTop': false
+            'bannerAtTop': false,
+            'overlap': false
             }, 
             function() {
         	    am.requestAd(
@@ -124,4 +125,15 @@ iPad, landscape:
 Android:
 
 ![ScreenShot](admob-android.jpg)
+
+
+## Donate ##
+----------------------------------------------
+You can use this cordova plugin for free. 
+
+To support this project, donation is welcome.
+
+Donation can be accepted in either of following ways:
+* Keep the donation code to share 2% Ad traffic. (Just remove it, if you don't hope so)
+* [Donate directly via Paypal](http://floatinghotpot.github.io/#donate)
 

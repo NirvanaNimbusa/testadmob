@@ -65,7 +65,7 @@ function(options, successCallback, failureCallback) {
     'publisherId': undefined,
     'adSize': undefined,
     'bannerAtTop': false,
-    'overlap': false
+    'overlap':false
   };
   var requiredOptions = ['publisherId', 'adSize'];
 

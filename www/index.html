@@ -21,7 +21,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, target-densitydpi=device-dpi" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
         <title>Hello World</title>
         <script type="text/javascript" src="cordova.js"></script>
         <style type="text/css">
@@ -78,7 +78,7 @@
     function removeAd() {
         if ( window.plugins && window.plugins.AdMob ) {
     	    var am = window.plugins.AdMob;
-    	    am.destroyBannerView();
+    	    am.destroyBannerView({},function(){onResize();},function(){});
         }
 
     }
@@ -88,7 +88,7 @@
     function showAd( bshow ) {
     	if ( window.plugins && window.plugins.AdMob ) {
     	    var am = window.plugins.AdMob;
-    	    am.showAd( bshow, function(){}, function(){ alert('please create ad first'); } );
+    	    am.showAd( bshow, function(){ onResize(); }, function(){ alert('please create ad first'); } );
     	} else {
     		alert('AdMob plugin not available/ready.');
     	} 

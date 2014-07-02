@@ -95,8 +95,6 @@ interstitial:(BOOL)isInterstitial;
 		self.bannerOverlap = NO;
 	}
     
-    NSLog(@"at top: %d, overlap: %d", self.bannerAtTop?1:0, self.bannerOverlap?1:0 );
-
 	[self createGADBannerViewWithPubId:publisherId bannerType:adSize];
 
 	// set background color to black
