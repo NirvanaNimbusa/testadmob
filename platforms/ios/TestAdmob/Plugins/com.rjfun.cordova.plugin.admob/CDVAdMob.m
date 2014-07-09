@@ -287,7 +287,10 @@ bannerType:(GADAdSize)adSize {
         self.bannerView.adUnitID = pubId;
         self.bannerView.delegate = self;
         self.bannerView.rootViewController = self.viewController;
-    }
+        
+        [self.webView.superview addSubview:self.bannerView];
+        [self resizeViews];
+   }
 }
 
 - (void)createGADInterstitialViewWithPubId:(NSString *)pubId {
@@ -329,10 +332,6 @@ bannerType:(GADAdSize)adSize {
         
     } else {
      	[self.bannerView loadRequest:request];
-        // Add the ad to the main container view, and resize the webview to make space
-        // for it.
-        [self.webView.superview addSubview:self.bannerView];
-        [self resizeViews];
     }
 }
 

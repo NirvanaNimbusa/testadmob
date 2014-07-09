@@ -46,6 +46,8 @@ public class AdMob extends CordovaPlugin {
     /** Whether or not the banner will overlap the webview instead of push it up or down */
     private boolean bannerOverlap = false;
     
+    private boolean adShow = true;
+    
     /** Common tag used for logging statements. */
     private static final String LOGTAG = "AdMob";
     
@@ -331,9 +333,6 @@ public class AdMob extends CordovaPlugin {
         });
         
         return null;
-        
-        // Request an ad on the UI thread.
-        //return executeRunnable(new RequestAdRunnable(isTesting, inputExtras));
     }
     
     /**
@@ -358,6 +357,8 @@ public class AdMob extends CordovaPlugin {
             return new PluginResult(Status.JSON_EXCEPTION);
         }
         
+        adShow = show;
+        
         if(adView == null) {
             return new PluginResult(Status.ERROR, "adView is null, call createBannerView first.");
         }
@@ -366,7 +367,7 @@ public class AdMob extends CordovaPlugin {
         cordova.getActivity().runOnUiThread(new Runnable(){
 			@Override
             public void run() {
-                adView.setVisibility( show ? View.VISIBLE : View.GONE );
+                adView.setVisibility( adShow ? View.VISIBLE : View.GONE );
                 delayCallback.success();
             }
         });
@@ -388,8 +389,8 @@ public class AdMob extends CordovaPlugin {
         @Override
         public void onAdFailedToLoad(int errorCode) {
             webView.loadUrl(String.format(
-                                          "javascript:cordova.fireDocumentEvent('onFailedToReceiveAd', { 'error': '%s' });",
-                                          errorCode));
+                    "javascript:cordova.fireDocumentEvent('onFailedToReceiveAd', { 'error': %d, 'reason':'%s' });",
+                    errorCode, getErrorReason(errorCode)));
         }
         
         @Override
@@ -472,6 +473,27 @@ public class AdMob extends CordovaPlugin {
         } else {
             return null;
         }
+    }
+
+    
+    /** Gets a string error reason from an error code. */
+    public String getErrorReason(int errorCode) {
+      String errorReason = "";
+      switch(errorCode) {
+        case AdRequest.ERROR_CODE_INTERNAL_ERROR:
+          errorReason = "Internal error";
+          break;
+        case AdRequest.ERROR_CODE_INVALID_REQUEST:
+          errorReason = "Invalid request";
+          break;
+        case AdRequest.ERROR_CODE_NETWORK_ERROR:
+          errorReason = "Network Error";
+          break;
+        case AdRequest.ERROR_CODE_NO_FILL:
+          errorReason = "No fill";
+          break;
+      }
+      return errorReason;
     }
 }
 
