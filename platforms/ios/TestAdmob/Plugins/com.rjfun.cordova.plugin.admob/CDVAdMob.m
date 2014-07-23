@@ -95,7 +95,13 @@ interstitial:(BOOL)isInterstitial;
 		self.bannerOverlap = NO;
 	}
     
-    NSLog(@"at top: %d, overlap: %d", self.bannerAtTop?1:0, self.bannerOverlap?1:0 );
+	if ([arguments objectAtIndex:OFFSET_TOPBAR_ARG_INDEX]) {
+		self.offsetTopBar = [[arguments objectAtIndex:OFFSET_TOPBAR_ARG_INDEX] boolValue];
+	} else {
+		self.offsetTopBar = NO;
+	}
+
+    NSLog(@"at top: %d, overlap: %d, offsetTopBar:%d", self.bannerAtTop?1:0, self.bannerOverlap?1:0, self.offsetTopBar?1:0 );
 
 	[self createGADBannerViewWithPubId:publisherId bannerType:adSize];
 
@@ -200,6 +206,30 @@ interstitial:(BOOL)isInterstitial;
 	pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
 	[self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
 }
+
+- (void)showInterstitialAd:(CDVInvokedUrlCommand *)command {
+	CDVPluginResult *pluginResult;
+	NSString *callbackId = command.callbackId;
+	NSArray* arguments = command.arguments;
+
+	if (! self.interstitialView) {
+		pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+		messageAsString:@"CDVAdMob:"
+		@"call createInterstitialView first"];
+		[self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
+		return;
+	}
+
+	BOOL toShow = [[arguments objectAtIndex:SHOW_AD_ARG_INDEX] boolValue];
+
+	if(toShow) {
+    	[self.interstitialView presentFromRootViewController:self.viewController];
+	}
+
+	pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+	[self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
+}
+
 
 - (void)requestAd:(CDVInvokedUrlCommand *)command {
 
@@ -400,11 +430,19 @@ bannerType:(GADAdSize)adSize {
     BOOL adIsShowing = [self.webView.superview.subviews containsObject:self.bannerView] &&
     (! self.bannerView.hidden);
     if(adIsShowing) {
+        // iOS7 Hack, handle the Statusbar
+        MainViewController *mainView = (MainViewController*) self.webView.superview.window.rootViewController;
+        BOOL isIOS7 = ([[UIDevice currentDevice].systemVersion floatValue] >= 7);
+        CGFloat top = isIOS7 ? mainView.topLayoutGuide.length : 0.0;
+        
+        if(! self.offsetTopBar) top = 0.0;
+            
         // banner overlap webview, no resizing needed, but we need bring banner over webview, and put it center.
         if(self.bannerOverlap) {
             bannerViewFrameNew.origin.x = (superViewFrameNew.size.width - bannerViewFrameNew.size.width) /2;
             if(self.bannerAtTop) {
-                bannerViewFrameNew.origin.y = 0;
+                bannerViewFrameNew.origin.y = top;
+                webViewFrameNew.origin.y = top;
             } else {
                 bannerViewFrameNew.origin.y = superViewFrameNew.size.height - bannerViewFrameNew.size.height;
             }
@@ -414,11 +452,6 @@ bannerType:(GADAdSize)adSize {
         }
 
         if(self.bannerAtTop) {
-            // iOS7 Hack, handle the Statusbar
-            MainViewController *mainView = (MainViewController*) self.webView.superview.window.rootViewController;
-            BOOL isIOS7 = ([[UIDevice currentDevice].systemVersion floatValue] >= 7);
-            CGFloat top = isIOS7 ? mainView.topLayoutGuide.length : 0.0;
-            
             // move banner view to top
             bannerViewFrameNew.origin.y = top;
             
@@ -487,14 +520,19 @@ bannerType:(GADAdSize)adSize {
     NSLog( @"adViewDidDismissScreen" );
 }
 
-- (void)interstitialDidReceiveAd:(GADInterstitial *)adView {
+- (void)interstitialDidReceiveAd:(GADInterstitial *)interstitial {
     if (self.interstitialView){
-        [self.interstitialView presentFromRootViewController:self.viewController];
-        [self writeJavascript:@"cordova.fireDocumentEvent('onReceiveAd');"];
+        [self writeJavascript:@"cordova.fireDocumentEvent('onReceiveInterstitialAd');"];
     }
 }
 
-- (void)interstitialDidDismissScreen:(GADInterstitial *)adView {
+- (void)interstitialWillPresentScreen:(GADInterstitial *)interstitial {
+    if (self.interstitialView){
+        [self writeJavascript:@"cordova.fireDocumentEvent('onPresentInterstitialAd');"];
+    }
+}
+
+- (void)interstitialDidDismissScreen:(GADInterstitial *)interstitial {
     self.interstitialView = nil;
 }
 

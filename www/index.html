@@ -41,6 +41,8 @@
     	
     	// more callback to handle Ad events
     	document.addEventListener('onReceiveAd', function(){
+		window.plugins.AdMob.showAd(true);
+		onResize();
     	});
     	document.addEventListener('onFailedToReceiveAd', function(data){
     	});
@@ -50,6 +52,9 @@
     	});
     	document.addEventListener('onLeaveToAd', function(){
     	});
+	document.addEventListener('onReceiveInterstitialAd', function(){
+                window.plugins.AdMob.showInterstitialAd(true);
+        });
     }
     function createAd() {
     	if ( window.plugins && window.plugins.AdMob ) {
@@ -59,10 +64,9 @@
                                 'publisherId': adId,
                                 'adSize': am.AD_SIZE.BANNER,
                                 'bannerAtTop': false,
-                                'overlap': false
+                                'overlap': true
                                 }, function() {
                                 am.requestAd( { 'isTesting':true }, function() {
-                                             am.showAd( true, function(){ onResize(); }, function(){} );
                                              }, function() {
                                              alert('failed to request ad');
                                              })
@@ -123,15 +127,15 @@
     <div>Try rotate screen to test the orientation change</div>
 
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-<input type="hidden" name="cmd" value="_donations">
-<input type="hidden" name="business" value="rjfun.mobile@gmail.com">
-<input type="hidden" name="lc" value="GB">
-<input type="hidden" name="item_name" value="cordova-plugin-admob">
-<input type="hidden" name="no_note" value="0">
-<input type="hidden" name="currency_code" value="USD">
-<input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest">
-<input type="image" src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online.">
-<img alt="" border="0" src="https://www.paypalobjects.com/zh_XC/i/scr/pixel.gif" width="1" height="1">
+<input type="hidden" name="cmd" value="_donations"/>
+<input type="hidden" name="business" value="rjfun.mobile@gmail.com"/>
+<input type="hidden" name="lc" value="GB"/>
+<input type="hidden" name="item_name" value="cordova-plugin-admob"/>
+<input type="hidden" name="no_note" value="0"/>
+<input type="hidden" name="currency_code" value="USD"/>
+<input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest"/>
+<input type="image" src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online."/>
+<img alt="" border="0" src="https://www.paypalobjects.com/zh_XC/i/scr/pixel.gif" width="1" height="1"/>
 </form>
     
     </div>

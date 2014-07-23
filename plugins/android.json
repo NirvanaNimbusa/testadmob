@@ -42,12 +42,13 @@
         }
     },
     "installed_plugins": {
-        "com.google.playservices": {
-            "PACKAGE_NAME": "com.rjfun.testadmob"
-        },
         "com.rjfun.cordova.plugin.admob": {
             "PACKAGE_NAME": "com.rjfun.testadmob"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "com.google.playservices": {
+            "PACKAGE_NAME": "com.rjfun.testadmob"
+        }
+    }
 }
